@@ -6,6 +6,13 @@ class Game < ApplicationRecord
   
   enum user_movement: MOVEMENTS, _prefix: :user
   enum bot_movement: MOVEMENTS, _prefix: :bot
-
   enum winner: RESULTS
+
+  validates :user_movement, inclusion: { in: MOVEMENTS.keys.map(&:to_s)  }
+  validates :bot_movement, inclusion: { in: MOVEMENTS.keys.map(&:to_s)  }
+  validates :winner, inclusion: { in: RESULTS.keys.map(&:to_s) }
+
+  validates :user_movement, :bot_movement, :winner, presence: true
+
+  validates :user, presence: true
 end
