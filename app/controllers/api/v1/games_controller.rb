@@ -11,15 +11,20 @@ module Api
     def create
       @game = Game.includes(:user).new()
       @game.start(name: game_params[:name], user_movement: game_params[:move])
+      create_template = 'api/v1/games/create.json.jbuilder'
 
-      @game.save if @game.errors.empty?
+      if @game.save
+        render create_template, status: :created
+      else
+        render template: create_template, status: :unprocessable_entity
+      end
     end
 
     private
 
       # Only allow a list of trusted parameters through.
       def game_params
-        params.permit(:name, :move)
+        params.permit(:name, :move, game: {})
       end
     end
   end
