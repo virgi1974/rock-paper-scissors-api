@@ -5,7 +5,7 @@ module Api
     class GamesController < ApplicationController
       # GET /games
       def index
-        @games = Game.includes(:user)
+        @games = Game.includes(:user).paginate(page: params[:page], per_page: 5)
       end
 
       # POST /games
