@@ -1,5 +1,6 @@
 module Api
-  class V1::GamesController < ApplicationController
+  module V1
+    class GamesController < ApplicationController
 
     # GET /games
     def index
@@ -20,5 +21,6 @@ module Api
       def game_params
         params.permit(:name, :move)
       end
+    end
   end
 end
