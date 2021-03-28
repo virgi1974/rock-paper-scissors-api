@@ -54,7 +54,11 @@ As mentioned before it should be improved with an Authentication system.
 
 ### Usage
 
-The different endpoints can be tested via Postman or any other Http client.
+Swagger documentation has been added and API can be tested under `http://localhost:3000/api-docs`
+
+![](https://user-images.githubusercontent.com/13310108/112764487-11a40780-9009-11eb-940f-4cc1d579a60a.png)
+
+Otherwise the different endpoints can be tested via Postman or any other Http client.
 
 In the `routes.rb` file the different routes of the project can be seen in detail.  
 Api versioning has been used from the beginning, so all routes should use prefix `/api/v1`  
@@ -121,7 +125,6 @@ It can be run with `docker exec -it 6e1c8037e846 bundle exec rubocop`
 
 #### How would you improve your solution? What would be the next steps?
 
-- Adding swagger
 - I created the app as a Rails project in API mode, BUT it still added many extra modules that are not needed and add a lot of content in the logs (Thinking of ActionCable). The app scafold should have been done removing those uneeded modules.
 - Authentication.
 - Indexing of the DB once we know the queries to be done
