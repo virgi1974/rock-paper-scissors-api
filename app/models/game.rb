@@ -5,6 +5,9 @@ class Game < ApplicationRecord
 
   MOVEMENTS = { rock: 0, paper: 1, scissors: 2 }.freeze
 
+  WIN_MOVEMENTS = [[:rock, :scissors], [:paper, :rock], [:scissors, :paper]]
+  LOSE_MOVEMENTS = [[:rock, :paper], [:paper, :scissors], [:scissors, :rock]]
+
   enum user_movement: MOVEMENTS, _prefix: :user
   enum bot_movement: MOVEMENTS, _prefix: :bot
 
@@ -28,14 +31,14 @@ class Game < ApplicationRecord
 
   # Analyze cases by movements
   def compare_movements
-    return 'draws' if user_movement == bot_movement
-
     movements = [user_movement.to_sym, bot_movement.to_sym]
-    case movements
-    when %i[rock paper] || %i[paper scissors] || %i[scissors rock]
+
+    if LOSE_MOVEMENTS.include?(movements)
       'loses'
-    when %i[rock scissors] || %i[paper rock] || %i[scissors paper]
+    elsif WIN_MOVEMENTS.include?(movements)
       'wins'
+    else
+      'draws'
     end
   end
 end

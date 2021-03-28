@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 if @game.errors.empty?
   plays = [
     { name: @game.user.name, move: @game.user_movement },
