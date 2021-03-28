@@ -5,6 +5,7 @@ module Api
     class GamesController < ApplicationController
       # GET /games
       def index
+        @total_games = Game.count
         @games = Game.includes(:user).paginate(page: params[:page], per_page: 5)
       end
 

@@ -12,10 +12,10 @@ RSpec.describe 'games API', type: :request do
 
       it 'has expected structure' do
         expect(parsed_response).not_to be_empty
-        expect(parsed_response).to eq({ 'total_games' => 0, 'games' => [] })
-        expect(parsed_response.keys.size).to eq(2)
+        expect(parsed_response).to eq({"total_games"=>0, "page"=>1, "results_per_page"=>5, "games"=>[]})
+        expect(parsed_response.keys.size).to eq(4)
 
-        expected_response_keys = %w[total_games games]
+        expected_response_keys = %w[total_games page results_per_page games]
         expected_response_keys.each do |key|
           expect(parsed_response.keys).to include(key)
         end
@@ -32,7 +32,7 @@ RSpec.describe 'games API', type: :request do
         headers = { 'ACCEPT' => 'application/json' }
         get '/api/v1/games', headers: headers
         expect(parsed_response['total_games']).to eq(Game.count)
-        expect(parsed_response).to eq({ 'total_games' => 0, 'games' => [] })
+        expect(parsed_response).to eq({"total_games"=>0, "page"=>1, "results_per_page"=>5, "games"=>[]})
       end
     end
 
