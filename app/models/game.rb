@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 class Game < ApplicationRecord
   belongs_to :user
 
-  MOVEMENTS = { rock: 0, paper: 1, scissors: 2 }
-  
+  MOVEMENTS = { rock: 0, paper: 1, scissors: 2 }.freeze
+
   enum user_movement: MOVEMENTS, _prefix: :user
   enum bot_movement: MOVEMENTS, _prefix: :bot
 
-  validates :user_movement, inclusion: { in: MOVEMENTS.keys.map(&:to_s)  }
-  validates :bot_movement, inclusion: { in: MOVEMENTS.keys.map(&:to_s)  }
+  validates :user_movement, inclusion: { in: MOVEMENTS.keys.map(&:to_s) }
+  validates :bot_movement, inclusion: { in: MOVEMENTS.keys.map(&:to_s) }
 
   validates :user_movement, :bot_movement, presence: true
 
@@ -20,9 +22,8 @@ class Game < ApplicationRecord
     self.user = user
     self.user_movement = user_movement.to_sym
     self.bot_movement = MOVEMENTS.keys.sample
-
   rescue ArgumentError => e
-    self.errors.add(:base, e.message)
+    errors.add(:base, e.message)
   end
 
   # Analyze cases by movements
@@ -31,10 +32,10 @@ class Game < ApplicationRecord
 
     movements = [user_movement.to_sym, bot_movement.to_sym]
     case movements
-    when [:rock, :paper] || [:paper, :scissors] || [:scissors, :rock]
-      "loses"
-    when [:rock, :scissors] || [:paper, :rock] || [:scissors, :paper]
-      "wins"
+    when %i[rock paper] || %i[paper scissors] || %i[scissors rock]
+      'loses'
+    when %i[rock scissors] || %i[paper rock] || %i[scissors paper]
+      'wins'
     end
   end
 end
