@@ -34,6 +34,8 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 4.0'
   gem 'shoulda-matchers', '~> 4.0'
   gem 'database_cleaner-active_record'
+  gem 'rubocop-rspec', require: false
+  gem 'rubocop-rails', require: false
 end
 
 group :development do
