@@ -67,16 +67,17 @@ The json structure for the history **GET /games** was not given as part of the e
 
 ```
 {
-    "total_games": 5,
+    "total_games": 21,
+    "page": 1,
+    "results_per_page": 5,
     "games": [
         {
-            "id": 157,
             "username": "Thomas",
-            "user_movement": "paper",
+            "user_movement": "rock",
             "bot_movement": "paper",
-            "result": "draws",
-            "played_at": "03/28/2021 - 01:15PM"
-        },
+            "result": "loses",
+            "played_at": "03/28/2021 - 02:59PM"
+        }
         ...
 ```
 
