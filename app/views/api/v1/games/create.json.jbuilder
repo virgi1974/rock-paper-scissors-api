@@ -5,7 +5,7 @@ if @game.errors.empty?
   ]
   
   json.moves plays, :name, :move
-  json.result "#{@game.user.name} #{@game.winner.to_s}s"
+  json.result "#{@game.user.name} #{@game.compare_movements}"
 else
   json.errors do
     json.message @game.errors.full_messages.first

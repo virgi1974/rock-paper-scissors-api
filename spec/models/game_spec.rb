@@ -9,10 +9,8 @@ RSpec.describe Game, type: :model do
   context 'validations' do
     it { should validate_presence_of(:user_movement) }
     it { should validate_presence_of(:bot_movement) }
-    it { should validate_presence_of(:winner) }
 
     it { should allow_values(:rock, :paper, :scissors).for(:user_movement) }
     it { should allow_values(:rock, :paper, :scissors).for(:bot_movement) }
-    it { should allow_values(:win, :lose, :draw).for(:winner) }
   end
 end
