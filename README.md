@@ -33,9 +33,9 @@ We need first to clone the repo and then follow the steps to get the full app an
    **OR** execute directly via the command line with  
    `docker exec -it 180945e859a7 bundle exec rails db:migrate`
 5. There is a `seeds.rb` file to populate the DB.
-6. We should be able to access the app via the port `3000`.  
-   In case some error happens we can stop running containers `docker-compose down` and then try  
-   `docker-compose run --rm -p 3000:3000 web bundle exec rails s -b 0.0.0.0`
+6. From this point we'll be using the commands `docker-compose down` and `docker-compose up` to stop/start.  
+   We should be able to access the app via the port `3000`.  
+   In case some error happens we can stop running containers `docker-compose down` and then try a manual run `docker-compose run --rm -p 3000:3000 web bundle exec rails s -b 0.0.0.0`
 
 NOTE
 Every time we add dependencies to the project we need to build images again `docker-compose up --build` to bundle install the related dependency.
