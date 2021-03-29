@@ -1,12 +1,12 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 
 RSpec.describe 'games API', type: :request do
+  let(:user) { create(:user, name: 'Thomas') }
+  let(:headers) { { 'ACCEPT' => 'application/json', 'Authorization' => token_generator(user.id) } }
+  
   describe 'GET api/v1/games' do
     context 'expected general behaviour' do
       before do
-        headers = { 'ACCEPT' => 'application/json' }
         get '/api/v1/games', headers: headers
       end
 
@@ -29,7 +29,6 @@ RSpec.describe 'games API', type: :request do
 
     context 'without stored games' do
       it 'returns expected content' do
-        headers = { 'ACCEPT' => 'application/json' }
         get '/api/v1/games', headers: headers
         expect(parsed_response['total_games']).to eq(Game.count)
         expect(parsed_response).to eq({"total_games"=>0, "page"=>1, "results_per_page"=>5, "games"=>[]})
@@ -38,9 +37,7 @@ RSpec.describe 'games API', type: :request do
 
     context 'with stored games' do
       before do
-        user = create(:user)
         games = create_list(:game, rand(1..5), user: user)
-        headers = { 'ACCEPT' => 'application/json' }
         get '/api/v1/games', headers: headers
       end
 
@@ -62,8 +59,7 @@ RSpec.describe 'games API', type: :request do
 
     context 'when the request is valid' do
       before do
-        user = create(:user, name: 'Thomas')
-        post '/api/v1/games', params: valid_attributes
+        post '/api/v1/games', params: valid_attributes, headers: headers
       end
 
       it 'creates a game' do
@@ -92,7 +88,7 @@ RSpec.describe 'games API', type: :request do
 
     context 'when the request is invalid' do
       context 'user not exists' do
-        before { post '/api/v1/games', params: invalid_user_attributes }
+        before { post '/api/v1/games', params: invalid_user_attributes, headers: headers }
 
         it 'none with that name' do
           user = User.find_by(name: invalid_user_attributes[:name])
@@ -110,8 +106,7 @@ RSpec.describe 'games API', type: :request do
 
       context 'user exists' do
         before do
-          create(:user, name: 'Thomas')
-          post '/api/v1/games', params: invalid_move_attributes
+          post '/api/v1/games', params: invalid_move_attributes, headers: headers
         end
 
         it 'found one with that name' do
@@ -134,5 +129,7 @@ RSpec.describe 'games API', type: :request do
         end
       end
     end
+  
   end
+
 end
