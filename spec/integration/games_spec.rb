@@ -18,7 +18,7 @@ describe 'Games API' do
 
       response '201', 'game created' do
         let!(:existing_user) do
-          User.create(name: 'foo name')
+          User.create(name: 'foo name', email: 'xxxxx@yyyy.com', password: 'sasasasa')
         end
 
         let(:game) { { name: 'foo name', move: 'paper' } }
