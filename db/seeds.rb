@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 p '######## CREATING USERS'
-%w[Johnny Carol Sara Thomas].each do |name|
-  User.create(name: name)
+4.times do
+  User.create(name: Faker::Name.first_name,
+              email: Faker::Internet.safe_email,
+              password: Faker::Internet.password)
 end
 
 user_ids = User.pluck(:id)
